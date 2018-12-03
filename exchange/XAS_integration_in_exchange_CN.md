@@ -1,11 +1,11 @@
-# XAS与交易平台对接文档
+# KMC与交易平台对接文档
 
 ## 1 Asch基本信息
 
-代币名称：阿希币<br>
-英文标识：XAS<br>
+代币名称：孔明屋<br>
+英文标识：KMC<br>
 主网上线时间：2016-08-16<br>
-发行总量：1亿，目前总的供应量为1.11亿XAS（有一个动态变化的通胀率,发行时间越长,通胀率越低）<br>
+发行总量：1亿，目前总的供应量为1.11亿KMC（有一个动态变化的通胀率,发行时间越长,通胀率越低）<br>
 共识算法：DPoS + PBFT<br>
 交易模式：账户余额模式，非UTXO<br>
 官网：https://www.asch.io<br>
@@ -15,7 +15,7 @@
 
 Asch 不是 BTC 源码的山寨，而是用 Node.js 全新开发的，目前都是纯 HTTP API，所以对接的时候请勿用 BTC 模板的交易网站代码去生拉硬套，目前有 Java 和 Node.js 版本的 SDK，交易平台可以直接用，其它开发语言，需要自己封装 HTTP API。<br>
 Asch 没有钱包的概念，每个密码对应一个账户地址，也就是说一个“钱包”中只包含一个地址(实质为脑钱包)，与BTC、ETH等区别较大。<br>
-Asch 的精度是小数点后8位，但后台处理的时候都是按照整数来处理，比如想转0.1XAS，后台实际处理的是0.1 * 100000000。<br>
+Asch 的精度是小数点后8位，但后台处理的时候都是按照整数来处理，比如想转0.1KMC，后台实际处理的是0.1 * 100000000。<br>
 Asch http接口文档-中文版：https://github.com/AschPlatform/asch-docs/blob/master/http_api/zh-cn.md<br>
 Asch http接口文档-英文版：https://github.com/AschPlatform/asch-docs/blob/master/http_api/en.md<br>
 该文档包含大部分的Asch接口，比如查询余额、转账、交易详情等，调用api返回结果为 JSON 数据。<br>
@@ -27,7 +27,7 @@ Asch http接口文档-英文版：https://github.com/AschPlatform/asch-docs/blob
 中文：https://github.com/AschPlatform/asch-docs/blob/master/install/zh-cn.md<br>
 英文：https://github.com/AschPlatform/asch-docs/blob/master/install/en.md
 
-## 3 用户充值XAS
+## 3 用户充值KMC
 
 Asch1.4 版本开始支持转账备注，因此交易平台可以有下面两种充值方案。
 
@@ -36,7 +36,7 @@ Asch1.4 版本开始支持转账备注，因此交易平台可以有下面两种
 
 ### 3.1 方案1-为每个用户生成一个充值地址
 
-目前bit-z.com、chaoex.com、coinegg.com、coolcoin .com等早期上线XAS的交易平台都是采用这种方式。
+目前bit-z.com、chaoex.com、coinegg.com、coolcoin .com等早期上线KMC的交易平台都是采用这种方式。
 
 #### 3.1.1 为用户生成充值地址
 
@@ -102,7 +102,7 @@ console.log(address);	// 打印地址，ALu3f2GaGrWzG4iczamDmGKr4YsbMFCdxB
 
 #### 3.1.2 用户进行充值
 
-用户UserA在Asch钱包（比如mainnet.asch.io）往充值地址转阿希币,比如转0.8XAS。
+用户UserA在Asch钱包（比如mainnet.asch.io）往充值地址转孔明屋,比如转0.8KMC。
 
 #### 3.1.3 交易平台确认用户充值
 
@@ -152,12 +152,12 @@ console.log(address);	// 打印地址，ALu3f2GaGrWzG4iczamDmGKr4YsbMFCdxB
 		"id": "5a61b58b75a70a42a6d51deba4dba560c78b2d671dfac68d37984eb464421d81", // 交易id
 		"height": "3183940",    //区块高度
 		"blockId": "951e14ef5100a9724a133f74e8f5c35e0d872aee654e7ea5323e57cd1c7b004e",  //区块id
-		"type": 0, // 交易类型，0：XAS普通转账
+		"type": 0, // 交易类型，0：KMC普通转账
 		"timestamp": 36252686,  // 交易时间戳，Asch时间，可以换算成现实世界的时间
 		"senderPublicKey": "40e322be1ec9084f48a17b5fecf88d59d0c70ce7ab06b1c4f6d285acfa3b0525",
 		"senderId": "AC4i4srjg1TyW24p8M4B8NTcYApUgvTpkd",   // 发送地址
 		"recipientId": "ALu3f2GaGrWzG4iczamDmGKr4YsbMFCdxB", // 接收地址,如果是平台地址，则需要做处理
-		"amount": 80000000, //转账金额，除以100000000后是真实的XAS个数，这里0.8XAS
+		"amount": 80000000, //转账金额，除以100000000后是真实的KMC个数，这里0.8KMC
 		"fee": 10000000,
 		"signature": "08a97ba29f7db324b31f782272e17c048f4b99d1761830bd7f541c484c28fcf14b1ee0dbbdd05ab2e80d186473e67d9bfed8e27b8c5e096d29a7f521236d8900",
 		"signSignature": "",
@@ -202,29 +202,29 @@ console.log(address);	// 打印地址，ALu3f2GaGrWzG4iczamDmGKr4YsbMFCdxB
 		}
 	}
 }
-// 当"confirmations"达到平台要求后，更改数据库中的“充值状态”为“已确认”并显示在前端页面，最后用户UserA的XAS余额做相应的增加。
+// 当"confirmations"达到平台要求后，更改数据库中的“充值状态”为“已确认”并显示在前端页面，最后用户UserA的KMC余额做相应的增加。
 
 ```
 
 至此用户UserA完成了充值流程。
 
-#### 3.1.4 交易平台将用户充值的XAS转到一个总账户中
+#### 3.1.4 交易平台将用户充值的KMC转到一个总账户中
 
-充值完成后，交易平台再将这些分散的用户xas转账到交易平台自己的总账户中（请一定保存好密码）。<br>
+充值完成后，交易平台再将这些分散的用户KMC转账到交易平台自己的总账户中（请一定保存好密码）。<br>
 总账户：可以做为平台的Asch冷钱包或者热钱包供用户提现。<br>
-举例，平台XAS总账户地址：A7RD9YP37iUnYZ1SFnmAp6ySHUx3msC4r5<br>
+举例，平台KMC总账户地址：A7RD9YP37iUnYZ1SFnmAp6ySHUx3msC4r5<br>
 Asch提供了下面2种方式进行转账操作。
 
 ##### 3.1.4.1 通过不安全的api进行转账
 
 这种方式是把密钥放到请求里面并且明文发送给服务器进行交易的生成和签名，不安全，不建议使用。如果非要使用这种方式，务必在局域网内搭建一台Asch节点服务器，用来提供API服务。
 
-- 汇总前通过查询本地数据库将XAS余额大于0的账户找到
+- 汇总前通过查询本地数据库将KMC余额大于0的账户找到
 
-- 可以利用如下api将充值的XAS转入到平台总账户中，该操作消耗0.1XAS手续费
+- 可以利用如下api将充值的KMC转入到平台总账户中，该操作消耗0.1KMC手续费
 
 ```bash
-> curl -k -H "Content-Type: application/json" -X PUT -d '{"secret":"latin december swing love square parade era fuel circle over hub spy","secondSecret":"二级密码，如果没有则不用传该参数","args":[70000000,"A7RD9YP37iUnYZ1SFnmAp6ySHUx3msC4r5"],"message":"beizhu","type":1,"fee":10000000}' 'http://127.0.0.1:8192/api/transactions' && echo // 70000000表示0.7 XAS，type为1表示XAS普通转账，因为网络需要收取固定的0.1XAS手续费，所以UserA的充值地址只可以转出0.7 XAS(之前充值了0.8XAS)
+> curl -k -H "Content-Type: application/json" -X PUT -d '{"secret":"latin december swing love square parade era fuel circle over hub spy","secondSecret":"二级密码，如果没有则不用传该参数","args":[70000000,"A7RD9YP37iUnYZ1SFnmAp6ySHUx3msC4r5"],"message":"beizhu","type":1,"fee":10000000}' 'http://127.0.0.1:8192/api/transactions' && echo // 70000000表示0.7KMC，type为1表示KMC普通转账，因为网络需要收取固定的0.1KMC手续费，所以UserA的充值地址只可以转出0.7 KMC(之前充值了0.8KMC)
 // 返回结果如下
 {
 	"success": true,    // 转账状态，成功
@@ -238,7 +238,7 @@ Asch提供了下面2种方式进行转账操作。
 ```
 var asch = require('asch-js');
 var targetAddress = "A7RD9YP37iUnYZ1SFnmAp6ySHUx3msC4r5";   // 接受地址
-var amount = 0.7*100000000;   // 0.7 XAS
+var amount = 0.7*100000000;   // 0.7 KMC
 var message = 'beizhuxinxi'; // 转账备注
 var password = 'latin december swing love square parade era fuel circle over hub spy'; // 发送者主密码
 var secondPassword=null; // 发送者二级密码，如果没有设置的话就是null
@@ -256,7 +256,7 @@ curl -H "Content-Type: application/json" -H "magic:5f5b3cf5" -H "version:''" -k 
 所有的用户共用一个Asch充值地址，充值时填写备注信息为自己在交易平台的用户名或者id，这样就不需要生成多个Asch充值地址了，但是如果用户填写错备注信息的话处理起来较为麻烦，需要专人客服去处理。
 该种方式，大体流程和方案1一致，这里不再赘述。
 
-## 4 提币XAS
+## 4 提币KMC
 
 提现操作就是转账，把平台的币转给用户。
 
