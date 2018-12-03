@@ -16,8 +16,7 @@
 KMC 不是 BTC 源码的山寨，而是用 Node.js 全新开发的，目前都是纯 HTTP API，所以对接的时候请勿用 BTC 模板的交易网站代码去生拉硬套，目前有 Java 和 Node.js 版本的 SDK，交易平台可以直接用，其它开发语言，需要自己封装 HTTP API。<br>
 KMC 没有钱包的概念，每个密码对应一个账户地址，也就是说一个“钱包”中只包含一个地址(实质为脑钱包)，与BTC、ETH等区别较大。<br>
 KMC 的精度是小数点后8位，但后台处理的时候都是按照整数来处理，比如想转0.1KMC，后台实际处理的是0.1 * 100000000。<br>
-KMC http接口文档-中文版：https://github.com/KMCPlatform/kmc-docs/blob/master/http_api/zh-cn.md<br>
-KMC http接口文档-英文版：https://github.com/KMCPlatform/kmc-docs/blob/master/http_api/en.md<br>
+KMC http接口文档：http://www.sosoapi.com/pass/apidoc/share/forward.htm?shareKey=ca37b5f3f9e140a0f519c2a08dee4f70<br>
 该文档包含大部分的KMC接口，比如查询余额、转账、交易详情等，调用api返回结果为 JSON 数据。<br>
 
 ## 2 用户充值KMC
