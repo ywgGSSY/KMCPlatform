@@ -15,7 +15,7 @@
 
 KMC 不是 BTC 源码的山寨，而是用 Node.js 全新开发的，目前都是纯 HTTP API，所以对接的时候请勿用 BTC 模板的交易网站代码去生拉硬套，目前有 Java 和 Node.js 版本的 SDK，交易平台可以直接用，其它开发语言，需要自己封装 HTTP API。<br>
 KMC 没有钱包的概念，每个密码对应一个账户地址，也就是说一个“钱包”中只包含一个地址(实质为脑钱包)，与BTC、ETH等区别较大。<br>
-KMC 的精度是小数点后8位，但后台处理的时候都是按照整数来处理，比如想转0.1KMC，后台实际处理的是0.1 * 100000000。<br>
+KMC 的精度是小数点后6位，但后台处理的时候都是按照整数来处理，比如想转0.1KMC，后台实际处理的是0.1 * 1000000。<br>
 KMC http接口文档：http://www.sosoapi.com/pass/apidoc/share/forward.htm?shareKey=ca37b5f3f9e140a0f519c2a08dee4f70<br>
 该文档包含大部分的KMC接口，比如查询余额、转账、交易详情等，调用api返回结果为 JSON 数据。<br>
 
@@ -149,7 +149,7 @@ console.log(address);	// 打印地址，ALu3f2GaGrWzG4iczamDmGKr4YsbMFCdxB
 		"senderPublicKey": "40e322be1ec9084f48a17b5fecf88d59d0c70ce7ab06b1c4f6d285acfa3b0525",
 		"senderId": "AC4i4srjg1TyW24p8M4B8NTcYApUgvTpkd",   // 发送地址
 		"recipientId": "ALu3f2GaGrWzG4iczamDmGKr4YsbMFCdxB", // 接收地址,如果是平台地址，则需要做处理
-		"amount": 80000000, //转账金额，除以100000000后是真实的KMC个数，这里0.8KMC
+		"amount": 80000000, //转账金额，除以1000000后是真实的KMC个数，这里0.8KMC
 		"fee": 10000000,
 		"signature": "08a97ba29f7db324b31f782272e17c048f4b99d1761830bd7f541c484c28fcf14b1ee0dbbdd05ab2e80d186473e67d9bfed8e27b8c5e096d29a7f521236d8900",
 		"signSignature": "",
@@ -230,7 +230,7 @@ KMC提供了下面2种方式进行转账操作。
 ```
 var kmc = require('kmc-js');
 var targetAddress = "A7RD9YP37iUnYZ1SFnmAp6ySHUx3msC4r5";   // 接受地址
-var amount = 0.7*100000000;   // 0.7 KMC
+var amount = 0.7*1000000;   // 0.7 KMC
 var message = 'beizhuxinxi'; // 转账备注
 var password = 'latin december swing love square parade era fuel circle over hub spy'; // 发送者主密码
 var secondPassword=null; // 发送者二级密码，如果没有设置的话就是null
