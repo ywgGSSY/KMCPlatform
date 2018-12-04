@@ -118,7 +118,7 @@ console.log(address);	// 打印地址，ALu3f2GaGrWzG4iczamDmGKr4YsbMFCdxB
 		"previousBlock": "5dbf4b80063153e3bb66b46b27f9041955d308c47d57e51b4934952591519589",
 		"numberOfTransactions": 1,  //该区块包含的交易个数
 		"totalAmount": 80000000,
-		"totalFee": 10000000,
+		"totalFee": 1000000,
 		"reward": 350000000,
 		"payloadLength": 143,
 		"payloadHash": "5a61b58b75a70a42a6d51deba4dba560c78b2d671dfac68d37984eb464421d81",
@@ -149,8 +149,8 @@ console.log(address);	// 打印地址，ALu3f2GaGrWzG4iczamDmGKr4YsbMFCdxB
 		"senderPublicKey": "40e322be1ec9084f48a17b5fecf88d59d0c70ce7ab06b1c4f6d285acfa3b0525",
 		"senderId": "AC4i4srjg1TyW24p8M4B8NTcYApUgvTpkd",   // 发送地址
 		"recipientId": "ALu3f2GaGrWzG4iczamDmGKr4YsbMFCdxB", // 接收地址,如果是平台地址，则需要做处理
-		"amount": 80000000, //转账金额，除以1000000后是真实的KMC个数，这里0.8KMC
-		"fee": 10000000,
+		"amount": 800000, //转账金额，除以1000000后是真实的KMC个数，这里0.8KMC
+		"fee": 1000000,
 		"signature": "08a97ba29f7db324b31f782272e17c048f4b99d1761830bd7f541c484c28fcf14b1ee0dbbdd05ab2e80d186473e67d9bfed8e27b8c5e096d29a7f521236d8900",
 		"signSignature": "",
 		"signatures": null,
@@ -181,8 +181,8 @@ console.log(address);	// 打印地址，ALu3f2GaGrWzG4iczamDmGKr4YsbMFCdxB
 		"senderPublicKey": "40e322be1ec9084f48a17b5fecf88d59d0c70ce7ab06b1c4f6d285acfa3b0525",
 		"senderId": "AC4i4srjg1TyW24p8M4B8NTcYApUgvTpkd",
 		"recipientId": "ALu3f2GaGrWzG4iczamDmGKr4YsbMFCdxB",    //接收地址
-		"amount": 80000000, // 金额
-		"fee": 10000000,
+		"amount": 800000, // 金额
+		"fee": 1000000,
 		"signature": "08a97ba29f7db324b31f782272e17c048f4b99d1761830bd7f541c484c28fcf14b1ee0dbbdd05ab2e80d186473e67d9bfed8e27b8c5e096d29a7f521236d8900",
 		"signSignature": "",
 		"signatures": null,
@@ -216,7 +216,7 @@ KMC提供了下面2种方式进行转账操作。
 - 可以利用如下api将充值的KMC转入到平台总账户中，该操作消耗0.1KMC手续费
 
 ```bash
-> curl -k -H "Content-Type: application/json" -X PUT -d '{"secret":"latin december swing love square parade era fuel circle over hub spy","secondSecret":"二级密码，如果没有则不用传该参数","args":[70000000,"A7RD9YP37iUnYZ1SFnmAp6ySHUx3msC4r5"],"message":"beizhu","type":1,"fee":10000000}' 'http://127.0.0.1:8192/api/transactions' && echo // 70000000表示0.7KMC，type为1表示KMC普通转账，因为网络需要收取固定的0.1KMC手续费，所以UserA的充值地址只可以转出0.7 KMC(之前充值了0.8KMC)
+> curl -k -H "Content-Type: application/json" -X PUT -d '{"secret":"latin december swing love square parade era fuel circle over hub spy","secondSecret":"二级密码，如果没有则不用传该参数","args":[700000,"A7RD9YP37iUnYZ1SFnmAp6ySHUx3msC4r5"],"message":"beizhu","type":1,"fee":1000000}' 'http://127.0.0.1:8192/api/transactions' && echo // 700000表示0.7KMC，type为1表示KMC普通转账，因为网络需要收取固定的0.1KMC手续费，所以UserA的充值地址只可以转出0.7 KMC(之前充值了0.8KMC)
 // 返回结果如下
 {
 	"success": true,    // 转账状态，成功
@@ -237,10 +237,10 @@ var secondPassword=null; // 发送者二级密码，如果没有设置的话就�
 // 生成交易信息并签名
 var transaction = kmc.transaction.createTransaction(targetAddress, amount, message, password, secondPassword || undefined);  
 JSON.stringify({"transaction":transaction})
-'{"transaction":{"type":0,"amount":70000000,"fee":10000000,"recipientId":"A7RD9YP37iUnYZ1SFnmAp6ySHUx3msC4r5","message":"beizhuxinxi","timestamp":43831575,"asset":{},"senderPublicKey":"d1cda821c7f98436f0c7824b96e9fe4dba50d54ed8fd69a92752cd923e416fc2","signature":"005e529e580010398424dbbd65b9c154b37f6cd575010a4f6d9396594311c1ef62487f1040a2cba1dd16a5dba3d12605d211fa08171967886ce9ef301ae82f05","id":"0f28435e9c395dd6b825bda167359bc23d41b5fc632afb59fedfafa298c27cde"}}'
+'{"transaction":{"type":0,"amount":700000,"fee":1000000,"recipientId":"A7RD9YP37iUnYZ1SFnmAp6ySHUx3msC4r5","message":"beizhuxinxi","timestamp":43831575,"asset":{},"senderPublicKey":"d1cda821c7f98436f0c7824b96e9fe4dba50d54ed8fd69a92752cd923e416fc2","signature":"005e529e580010398424dbbd65b9c154b37f6cd575010a4f6d9396594311c1ef62487f1040a2cba1dd16a5dba3d12605d211fa08171967886ce9ef301ae82f05","id":"0f28435e9c395dd6b825bda167359bc23d41b5fc632afb59fedfafa298c27cde"}}'
 
 // 将上面生成的转账操作的交易数据通过post提交给kmc server
-curl -H "Content-Type: application/json" -H "magic:5f5b3cf5" -H "version:''" -k -X POST -d '{"transaction":{"type":0,"amount":70000000,"fee":10000000,"recipientId":"A7RD9YP37iUnYZ1SFnmAp6ySHUx3msC4r5","message":"beizhuxinxi","timestamp":43831575,"asset":{},"senderPublicKey":"d1cda821c7f98436f0c7824b96e9fe4dba50d54ed8fd69a92752cd923e416fc2","signature":"005e529e580010398424dbbd65b9c154b37f6cd575010a4f6d9396594311c1ef62487f1040a2cba1dd16a5dba3d12605d211fa08171967886ce9ef301ae82f05","id":"0f28435e9c395dd6b825bda167359bc23d41b5fc632afb59fedfafa298c27cde"}}' http://192.168.1.100:8192/peer/transactions
+curl -H "Content-Type: application/json" -H "magic:5f5b3cf5" -H "version:''" -k -X POST -d '{"transaction":{"type":0,"amount":700000,"fee":1000000,"recipientId":"A7RD9YP37iUnYZ1SFnmAp6ySHUx3msC4r5","message":"beizhuxinxi","timestamp":43831575,"asset":{},"senderPublicKey":"d1cda821c7f98436f0c7824b96e9fe4dba50d54ed8fd69a92752cd923e416fc2","signature":"005e529e580010398424dbbd65b9c154b37f6cd575010a4f6d9396594311c1ef62487f1040a2cba1dd16a5dba3d12605d211fa08171967886ce9ef301ae82f05","id":"0f28435e9c395dd6b825bda167359bc23d41b5fc632afb59fedfafa298c27cde"}}' http://192.168.1.100:8192/peer/transactions
 ```
 
 ### 2.2 方案2-为所有用户生成同一个充值地址
