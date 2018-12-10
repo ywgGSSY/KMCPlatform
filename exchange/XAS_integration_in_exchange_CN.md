@@ -4,20 +4,18 @@
 
 代币名称：孔明屋<br>
 英文标识：KMC<br>
-主网上线时间：2016-08-16<br>
+主网上线时间：2018-12-6<br>
 发行总量：10亿，目前总的供应量10亿并且不会改变<br>
 共识算法：DPoS + PBFT<br>
 交易模式：账户余额模式，非UTXO<br>
-官网：https://www.kmc.io<br>
-在线钱包：https://mainnet.kmc.io，基本功能可以在这里进行体验<br>
-区块链浏览器：https://explorer.kmc.io/<br>
+官网：http://www.koumei.io/<br>
+在线钱包[开发中]：http://wallet.koumei.io/<br>
+区块链浏览器[开发中]：http://explorer.koumei.io/<br>
 地址格式：字母数字混合，base58格式且以大写字母A开头且长度不低于10，比如A7RD9YP37iUnYZ1SFnmAp6ySHUx3msC4r5<br>
 
 KMC 不是 BTC 源码的山寨，而是用 Node.js 全新开发的，目前都是纯 HTTP API，所以对接的时候请勿用 BTC 模板的交易网站代码去生拉硬套，目前有 Java 和 Node.js 版本的 SDK，交易平台可以直接用，其它开发语言，需要自己封装 HTTP API。<br>
 KMC 没有钱包的概念，每个密码对应一个账户地址，也就是说一个“钱包”中只包含一个地址(实质为脑钱包)，与BTC、ETH等区别较大。<br>
 KMC 的精度是小数点后6位，但后台处理的时候都是按照整数来处理，比如想转0.1KMC，后台实际处理的是0.1 * 1000000。<br>
-KMC http接口文档：http://www.sosoapi.com/pass/apidoc/share/forward.htm?shareKey=ca37b5f3f9e140a0f519c2a08dee4f70<br>
-该文档包含大部分的KMC接口，比如查询余额、转账、交易详情等，调用api返回结果为 JSON 数据。<br>
 
 ## 2 用户充值KMC
 
@@ -38,7 +36,7 @@ KMC1.4 版本开始支持转账备注，因此交易平台可以有下面两种�
 ##### 2.1.1.1 调用 HTTP 接口生成地址
 
 ```bash
-> curl -k -X GET 'http://192.168.1.100:8192/api/accounts/new'
+> curl -k -X GET 'http://212.64.44.248:8888/api/accounts/new'
 // JSON返回示例如下
 {
     success: true,
@@ -47,22 +45,6 @@ KMC1.4 版本开始支持转账备注，因此交易平台可以有下面两种�
     privateKey: "67c9523b7622704c4bcfe960cb32d7fa04d3eb94e30e7964d3c6a24a3647a0a3261fa56f389c324fddbe8777dbc0ef3341ee7b75d1ffdc82192265633b90d503", // 私钥
     address: "ANfXDQUZroMnrQ6vRGR7UXXtbPn3fhEVRJ" // 地址
 }
-```
-
-##### 2.1.1.2 用kmc-cli命令行工具批量生成地址
-
-```bash
-// 如果用其他编程语言，觉得批量生成账户地址有困难还可以用kmc-cli命令行工具批量生成钱包地址（含密码、地址、公钥），生成多个地址，加密存到数据库或者其它地方，然后程序直接用.
-// 安装kmc-cli工具
-> npm install -g kmc-cli
-// 批量生成钱包地址
-// 需要nodejs版本为8.x，node --version查看node版本
-> kmc-cli crypto -g
-? Enter number of accounts to generate 1 // 这里输入的的1表示生成一个地址，可以填写10、100或者1000等数字
-[ { address: 'AAW3Bh86U8RdHryp86KN19ScSVLpr2x6J4',
-	secret: 'actress south egg hen neutral salute section sign truck produce agent daughter',
-	publicKey: 'fd86a5bb9e06bd3a0555e27402f90b565300b0a7a6fb42ee4269aae0cfca60c6' } ]
-Done
 ```
 
 ##### 2.1.1.3 nodejs代码生成地址
@@ -76,8 +58,8 @@ Done
 // 上面命令执行完成后再开一个os shell窗口执行下面的命令，安装nodejs 8.x
 > nvm install 8
 
-// 安装依赖库（kmc-js、bitcore-mnemonic），在os shell中运行
-> npm install kmc-js bitcore-mnemonic
+// 安装依赖库（asch-js、bitcore-mnemonic），在os shell中运行
+> npm install asch-js bitcore-mnemonic
 
 // 以下在node中运行
 var Mnemonic = require('bitcore-mnemonic');
@@ -85,16 +67,16 @@ var secret = new Mnemonic(Mnemonic.Words.ENGLISH).toString();	// 生成密码
 console.log(secret);	    // 打印密码，'latin december swing love square parade era fuel circle over hub spy'
 Mnemonic.isValid(secret);   // 验证密码是否符合bip39规范
 
-var KMCJS = require('kmc-js');
-var publicKey = KMCJS.crypto.getKeys(secret).publicKey;  // 根据密码生成公钥
-var address = KMCJS.crypto.getAddress(publicKey);  // 根据公钥生成地址
+var ASCHJS = require('asch-js');
+var publicKey = ASCHJS.crypto.getKeys(secret).publicKey;  // 根据密码生成公钥
+var address = ASCHJS.crypto.getAddress(publicKey);  // 根据公钥生成地址
 console.log(address);	// 打印地址，ALu3f2GaGrWzG4iczamDmGKr4YsbMFCdxB
 然后将用户名、地址、加密后的密码存入到数据库或者文件中，从而完成用户和充值地址的绑定，然后将充值地址展示在前端页面上。
 ```
 
 #### 2.1.2 用户进行充值
 
-用户UserA在KMC钱包（比如mainnet.kmc.io）往充值地址转孔明屋,比如转0.8KMC。
+用户UserA在KMC钱包（KMC Dapp）往充值地址转KMC,比如转0.8KMC。
 
 #### 2.1.3 交易平台确认用户充值
 
@@ -106,7 +88,7 @@ console.log(address);	// 打印地址，ALu3f2GaGrWzG4iczamDmGKr4YsbMFCdxB
 ```bash
 // 通过区块高度获去检查该区块是否有交易并取到区块id，每个新区块都要检查
 // height=3183940表示区块高度
-> curl -k -X GET 'http://mainnet.kmc.io/api/blocks/get?height=3183940'
+> curl -k -X GET 'http://212.64.44.248:8888/api/blocks/get?height=3183940'
 // 返回结果如下,保存到变量res中，下面会用到
 {
 	"success": true,
@@ -129,6 +111,7 @@ console.log(address);	// 打印地址，ALu3f2GaGrWzG4iczamDmGKr4YsbMFCdxB
 		"totalForged": 360000000
 	}
 }
+
 ```
 
 ##### 2.1.3.2 根据区块id查询交易详情
@@ -136,7 +119,7 @@ console.log(address);	// 打印地址，ALu3f2GaGrWzG4iczamDmGKr4YsbMFCdxB
 ```bash
 // 如果res.block.numberOfTransactions > 0,则说明该区块包含交易。
 // 然后根据res.block.id并利用下面的接口去查询该区块包含的交易详情
-> curl -k -X GET 'http://mainnet.kmc.io/api/transactions?blockId=951e14ef5100a9724a133f74e8f5c35e0d872aee654e7ea5323e57cd1c7b004e'
+> curl -k -X GET 'http://212.64.44.248:8888/api/transactions?blockId=951e14ef5100a9724a133f74e8f5c35e0d872aee654e7ea5323e57cd1c7b004e'
 // 返回结果如下，保存为变量trs
 {	
 	"success": true,
@@ -169,7 +152,7 @@ console.log(address);	// 打印地址，ALu3f2GaGrWzG4iczamDmGKr4YsbMFCdxB
 // 充值状态是由确认数决定的，具体是几，由平台自己定，如果入库时确认数未满足平台标准，则充值状态是“未确认”，否则就是“已确认”.（目前KMC网络认为6个确认就是安全的，交易平台可适当增大该值。）
 
 // 每隔1分钟对本地数据库中所有的“未确认”充值记录进行再次确认，根据数据库中的“交易id”利用下面的接口去检查交易详情
-> curl -k -X GET 'http://mainnet.kmc.io/api/transactions/get?id=5a61b58b75a70a42a6d51deba4dba560c78b2d671dfac68d37984eb464421d81'
+> curl -k -X GET 'http://212.64.44.248:8888/api/transactions/get?id=5a61b58b75a70a42a6d51deba4dba560c78b2d671dfac68d37984eb464421d81'
 {
 	"success": true,
 	"transaction": {
@@ -216,7 +199,7 @@ KMC提供了下面2种方式进行转账操作。
 - 可以利用如下api将充值的KMC转入到平台总账户中，该操作消耗0.1KMC手续费
 
 ```bash
-> curl -k -H "Content-Type: application/json" -X PUT -d '{"secret":"latin december swing love square parade era fuel circle over hub spy","secondSecret":"二级密码，如果没有则不用传该参数","args":[700000,"A7RD9YP37iUnYZ1SFnmAp6ySHUx3msC4r5"],"message":"beizhu","type":1,"fee":1000000}' 'http://127.0.0.1:8192/api/transactions' && echo // 700000表示0.7KMC，type为1表示KMC普通转账，因为网络需要收取固定的0.1KMC手续费，所以UserA的充值地址只可以转出0.7 KMC(之前充值了0.8KMC)
+> curl -k -H "Content-Type: application/json" -X PUT -d '{"secret":"latin december swing love square parade era fuel circle over hub spy","secondSecret":"二级密码，如果没有则不用传该参数","args":[700000,"A7RD9YP37iUnYZ1SFnmAp6ySHUx3msC4r5"],"message":"beizhu","type":1,"fee":1000000}' 'http://212.64.44.248:8888/api/transactions' && echo // 700000表示0.7KMC，type为1表示KMC普通转账，因为网络需要收取固定的0.1KMC手续费，所以UserA的充值地址只可以转出0.7 KMC(之前充值了0.8KMC)
 // 返回结果如下
 {
 	"success": true,    // 转账状态，成功
@@ -228,14 +211,14 @@ KMC提供了下面2种方式进行转账操作。
 
 建议使用这种安全的方法进行转账，此种方法是在本地生成交易信息并签名，然后广播到区块链网络中，这里对KMC Server没有安全性要求。
 ```
-var kmc = require('kmc-js');
+var asch = require('asch-js');
 var targetAddress = "A7RD9YP37iUnYZ1SFnmAp6ySHUx3msC4r5";   // 接受地址
 var amount = 0.7*1000000;   // 0.7 KMC
 var message = 'beizhuxinxi'; // 转账备注
 var password = 'latin december swing love square parade era fuel circle over hub spy'; // 发送者主密码
 var secondPassword=null; // 发送者二级密码，如果没有设置的话就是null
 // 生成交易信息并签名
-var transaction = kmc.transaction.createTransaction(targetAddress, amount, message, password, secondPassword || undefined);  
+var transaction = asch.transaction.createTransaction(targetAddress, amount, message, password, secondPassword || undefined);  
 JSON.stringify({"transaction":transaction})
 '{"transaction":{"type":0,"amount":700000,"fee":1000000,"recipientId":"A7RD9YP37iUnYZ1SFnmAp6ySHUx3msC4r5","message":"beizhuxinxi","timestamp":43831575,"asset":{},"senderPublicKey":"d1cda821c7f98436f0c7824b96e9fe4dba50d54ed8fd69a92752cd923e416fc2","signature":"005e529e580010398424dbbd65b9c154b37f6cd575010a4f6d9396594311c1ef62487f1040a2cba1dd16a5dba3d12605d211fa08171967886ce9ef301ae82f05","id":"0f28435e9c395dd6b825bda167359bc23d41b5fc632afb59fedfafa298c27cde"}}'
 
