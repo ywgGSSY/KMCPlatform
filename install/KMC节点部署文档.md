@@ -7,12 +7,12 @@
 ##### 2.包解压安装
 
 ```shell
-root$ wget http://img.xinyuanlive.com/koumei-linux-1.0.0-testnet.tar.gz
-root$ tar xzvf koumei-linux-1.0.0-testnet.tar.gz
-root$ cd koumei-linux-1.0.0-testnet
+root$ wget http://img.xinyuanlive.com/koumei-linux-1.0.0-mainnet.zip
+root$ unzip koumei-linux-1.0.0-mainnet.zip
+root$ cd koumei-linux-1.0.0-mainnet
 ```
 
-在koumei-linux-1.0.0-testnet目录下，修改config.json中参数publicIp。改成自己本机的公网IP,其他不做改动
+在koumei-linux-1.0.0-mainnet目录下，修改config.json中参数publicIp。改成自己本机的公网IP,其他不做改动
 
 ```json
 "publicIp": "xxx.xxx.xxx.xxx"  //添上公网IP地址
@@ -20,7 +20,7 @@ root$ cd koumei-linux-1.0.0-testnet
 
 ##### 3.启动服务
 
-在koumei-linux-1.0.0-testnet目录下
+在koumei-linux-1.0.0-mainnet目录下
 
 ```shell
 root$ ./aschd start
